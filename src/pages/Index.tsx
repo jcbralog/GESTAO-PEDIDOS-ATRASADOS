@@ -1,16 +1,38 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useCallback } from 'react';
+import FileUpload from '@/components/FileUpload';
+import Dashboard from '@/components/Dashboard';
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+interface DataState {
+  rows: Record<string, unknown>[];
+  fileName: string;
+  sheets: string[];
+  activeSheet: string;
+  lastUpdate: Date;
+}
+
+export default function Index() {
+  const [data, setData] = useState<DataState | null>(null);
+  const [showUpload, setShowUpload] = useState(true);
+
+  const handleDataLoaded = useCallback((rows: Record<string, unknown>[], fileName: string, sheets: string[], activeSheet: string) => {
+    setData({ rows, fileName, sheets, activeSheet, lastUpdate: new Date() });
+    setShowUpload(false);
+  }, []);
+
+  const handleRefresh = useCallback(() => {
+    setShowUpload(true);
+  }, []);
+
+  if (showUpload || !data) {
+    return <FileUpload onDataLoaded={handleDataLoaded} />;
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <Dashboard
+      rows={data.rows}
+      fileName={data.fileName}
+      lastUpdate={data.lastUpdate}
+      onRefresh={handleRefresh}
+    />
   );
-};
-
-const Index = PlaceholderIndex;
-
-export default Index;
+}

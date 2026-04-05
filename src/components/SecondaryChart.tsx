@@ -6,8 +6,11 @@ interface Props {
   label: string;
 }
 
-const renderLabel = ({ name, percent }: { name: string; percent: number }) =>
-  `${name} (${(percent * 100).toFixed(0)}%)`;
+const renderLabel = (props: Record<string, unknown>) => {
+  const name = String(props.name ?? '');
+  const percent = Number(props.percent ?? 0);
+  return `${name} (${(percent * 100).toFixed(0)}%)`;
+};
 
 export default function SecondaryChart({ data, type, label }: Props) {
   if (!data.length) return <div className="flex items-center justify-center h-full text-muted-foreground">Sem dados</div>;

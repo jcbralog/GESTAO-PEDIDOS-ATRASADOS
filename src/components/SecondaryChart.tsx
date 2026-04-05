@@ -6,7 +6,8 @@ interface Props {
   label: string;
 }
 
-const renderLabel = (props: Record<string, unknown>) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const renderLabel = (props: any) => {
   const name = String(props.name ?? '');
   const percent = Number(props.percent ?? 0);
   return `${name} (${(percent * 100).toFixed(0)}%)`;

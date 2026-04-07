@@ -154,23 +154,31 @@ export function parseExcelToOrders(rows: Record<string, unknown>[]): Order[] {
 }
 
 export const PHASE_COLORS: Record<string, string> = {
-  'Aguardando Separação': 'hsl(var(--warning))',
-  'Em Separação': 'hsl(38, 80%, 65%)',
-  'Embalagem': 'hsl(var(--primary))',
+  'Em Digit.': 'hsl(var(--warning))',
+  'A Sep.': 'hsl(38, 80%, 65%)',
+  'Em Sep.': 'hsl(var(--primary))',
+  'Sep. Conf.': 'hsl(200, 70%, 55%)',
+  'Em Cko.': 'hsl(280, 67%, 60%)',
+  'Cko Vol. Ok': 'hsl(var(--chart-2))',
+  'N.F. Conf.': 'hsl(170, 60%, 45%)',
   'Faturado': 'hsl(217, 70%, 50%)',
-  'Expedido': 'hsl(280, 67%, 60%)',
-  'Em Trânsito': 'hsl(var(--chart-2))',
-  'Entregue': 'hsl(var(--success))',
+  'Expedido': 'hsl(300, 50%, 55%)',
+  'Em Trânsito': 'hsl(var(--success))',
+  'Entregue': 'hsl(142, 60%, 40%)',
   'Devolvido': 'hsl(var(--destructive))',
 };
 
 export const PHASE_COLORS_RAW: Record<string, string> = {
-  'Aguardando Separação': '#F59E0B',
-  'Em Separação': '#D4A04A',
-  'Embalagem': '#3B82F6',
+  'Em Digit.': '#F59E0B',
+  'A Sep.': '#D4A04A',
+  'Em Sep.': '#3B82F6',
+  'Sep. Conf.': '#2DA0D1',
+  'Em Cko.': '#8B5CF6',
+  'Cko Vol. Ok': '#22C55E',
+  'N.F. Conf.': '#2DB880',
   'Faturado': '#2563EB',
-  'Expedido': '#8B5CF6',
-  'Em Trânsito': '#22C55E',
-  'Entregue': '#16A34A',
+  'Expedido': '#C040C0',
+  'Em Trânsito': '#16A34A',
+  'Entregue': '#0D8040',
   'Devolvido': '#EF4444',
 };

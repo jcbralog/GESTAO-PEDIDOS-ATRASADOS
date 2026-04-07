@@ -17,33 +17,31 @@ export default function RecentOrdersTable({ orders }: Props) {
         <table className="w-full text-xs">
           <thead>
             <tr className="border-b border-border text-muted-foreground">
-              <th className="text-left py-1.5 px-2 font-medium">Pedido</th>
-              <th className="text-left py-1.5 px-2 font-medium">Data</th>
-              <th className="text-left py-1.5 px-2 font-medium">Cliente</th>
-              <th className="text-left py-1.5 px-2 font-medium">Transp.</th>
-              <th className="text-left py-1.5 px-2 font-medium">Fase</th>
-              <th className="text-right py-1.5 px-2 font-medium">Unid.</th>
-              <th className="text-right py-1.5 px-2 font-medium">Lead</th>
+              <th className="text-left py-1.5 px-1.5 font-medium">Pedido</th>
+              <th className="text-left py-1.5 px-1.5 font-medium">Data</th>
+              <th className="text-left py-1.5 px-1.5 font-medium">Cliente</th>
+              <th className="text-left py-1.5 px-1.5 font-medium">Fase</th>
+              <th className="text-left py-1.5 px-1.5 font-medium">Dt.Conf.Sep</th>
+              <th className="text-right py-1.5 px-1.5 font-medium">Unid.</th>
             </tr>
           </thead>
           <tbody>
             {rows.map(o => (
               <tr key={o.id} className="border-b border-border/50 hover:bg-secondary/30">
-                <td className="py-1.5 px-2 font-mono text-foreground">{o.id}</td>
-                <td className="py-1.5 px-2 text-muted-foreground">{o.date.slice(5)}</td>
-                <td className="py-1.5 px-2 text-foreground">{o.client}</td>
-                <td className="py-1.5 px-2 text-foreground">{o.carrier}</td>
-                <td className="py-1.5 px-2">
+                <td className="py-1 px-1.5 font-mono text-foreground">{o.id}</td>
+                <td className="py-1 px-1.5 text-muted-foreground">{o.date.slice(5)}</td>
+                <td className="py-1 px-1.5 text-foreground truncate max-w-[80px]">{o.client}</td>
+                <td className="py-1 px-1.5">
                   <Badge
                     variant="outline"
-                    className="text-[10px] px-1.5 py-0 border-0 font-medium"
-                    style={{ backgroundColor: PHASE_COLORS[o.phase] + '22', color: PHASE_COLORS[o.phase] }}
+                    className="text-[9px] px-1 py-0 border-0 font-medium"
+                    style={{ backgroundColor: (PHASE_COLORS[o.phase] || 'hsl(var(--primary))') + '22', color: PHASE_COLORS[o.phase] || 'hsl(var(--primary))' }}
                   >
                     {o.phase}
                   </Badge>
                 </td>
-                <td className="py-1.5 px-2 text-right text-foreground">{o.units}</td>
-                <td className="py-1.5 px-2 text-right text-foreground">{o.leadTimeDays}d</td>
+                <td className="py-1 px-1.5 text-muted-foreground text-[10px]">{o.dtConfSep ? o.dtConfSep.slice(5) : '—'}</td>
+                <td className="py-1 px-1.5 text-right text-foreground">{o.units}</td>
               </tr>
             ))}
           </tbody>

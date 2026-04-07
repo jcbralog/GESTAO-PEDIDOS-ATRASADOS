@@ -14,11 +14,10 @@ export default function ConfSepChart({ orders }: Props) {
       const dt = o.dtConfSep!;
       grouped[dt] = (grouped[dt] || 0) + 1;
     });
-    const entries = Object.entries(grouped)
+    return Object.entries(grouped)
       .sort(([a], [b]) => a.localeCompare(b))
       .slice(-15)
       .map(([date, count]) => ({ date: date.slice(5), count }));
-    return entries;
   }, [orders]);
 
   const avg = useMemo(() => {
@@ -26,18 +25,12 @@ export default function ConfSepChart({ orders }: Props) {
     return Math.round(data.reduce((s, d) => s + d.count, 0) / data.length);
   }, [data]);
 
-  if (!data.length) {
-    return (
-      <div className="bg-card rounded-lg border border-border p-3 h-full flex flex-col items-center justify-center">
-        <p className="text-xs text-muted-foreground">Sem dados de Dt. Conf. Sep.</p>
-      </div>
-    );
-  }
+  if (!data.length) return null;
 
   return (
     <div className="bg-card rounded-lg border border-border p-3 h-full flex flex-col">
       <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">
-        Confirmações de Separação por Dia (Dt. Conf. Sep.)
+        Confirmações de Separação por Dia
       </h3>
       <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">

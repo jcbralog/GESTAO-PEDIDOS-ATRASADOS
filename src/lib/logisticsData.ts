@@ -2,7 +2,7 @@
 
 const CLIENTS = ['Magazine Luiza', 'Americanas', 'Casas Bahia', 'Mercado Livre', 'Amazon BR', 'Shopee', 'Via Varejo', 'Carrefour'];
 const CARRIERS = ['Jadlog', 'Correios', 'Total Express', 'Loggi', 'Azul Cargo', 'TNT Mercúrio', 'Braspress'];
-const PHASES = ['Aguardando Separação', 'Em Separação', 'Embalagem', 'Faturado', 'Expedido', 'Em Trânsito', 'Entregue', 'Devolvido'];
+const PHASES = ['Em Digit.', 'A Sep.', 'Em Sep.', 'Sep. Conf.', 'Em Cko.', 'Cko Vol. Ok', 'N.F. Conf.', 'Faturado', 'Expedido', 'Em Trânsito', 'Entregue', 'Devolvido'];
 const PRODUCTS = ['Eletrônicos', 'Vestuário', 'Alimentos', 'Cosméticos', 'Móveis', 'Brinquedos', 'Papelaria', 'Ferramentas'];
 const CITIES = ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Curitiba', 'Porto Alegre', 'Salvador', 'Recife', 'Fortaleza', 'Brasília', 'Manaus'];
 

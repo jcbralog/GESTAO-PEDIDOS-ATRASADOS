@@ -6,7 +6,7 @@ import PhaseChart from '@/components/logistics/PhaseChart';
 import DailyVolumeChart from '@/components/logistics/DailyVolumeChart';
 import ConfSepChart from '@/components/logistics/ConfSepChart';
 import BottleneckIndicator from '@/components/logistics/BottleneckIndicator';
-import RecentOrdersTable from '@/components/logistics/RecentOrdersTable';
+
 import LogisticsUpload from '@/components/logistics/LogisticsUpload';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -138,10 +138,11 @@ export default function LogisticsDashboard() {
           <BottleneckIndicator orders={filtered} />
         </div>
 
-        <div className="flex-1 grid gap-2 min-h-0" style={{ gridTemplateColumns: hasConfSep ? '1fr 1fr' : '1fr' }}>
-          {hasConfSep && <ConfSepChart orders={filtered} />}
-          <RecentOrdersTable orders={filtered} />
-        </div>
+        {hasConfSep && (
+          <div className="flex-1 min-h-0">
+            <ConfSepChart orders={filtered} />
+          </div>
+        )}
       </div>
     </div>
   );

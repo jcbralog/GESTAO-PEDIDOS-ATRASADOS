@@ -4,13 +4,13 @@ import LogisticsFilters from '@/components/logistics/LogisticsFilters';
 import LogisticsKPIs from '@/components/logistics/LogisticsKPIs';
 import PhaseChart from '@/components/logistics/PhaseChart';
 import DailyVolumeChart from '@/components/logistics/DailyVolumeChart';
-import CarrierPerformanceChart from '@/components/logistics/CarrierPerformanceChart';
 import ConfSepChart from '@/components/logistics/ConfSepChart';
+import BottleneckIndicator from '@/components/logistics/BottleneckIndicator';
 import RecentOrdersTable from '@/components/logistics/RecentOrdersTable';
 import LogisticsUpload from '@/components/logistics/LogisticsUpload';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Upload, RefreshCw } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ImportRecord {
@@ -69,6 +69,9 @@ export default function LogisticsDashboard() {
 
   const lastImport = imports.length > 0 ? imports[imports.length - 1] : null;
 
+  // Check if ConfSep data exists
+  const hasConfSep = useMemo(() => filtered.some(o => o.dtConfSep), [filtered]);
+
   if (showUpload || !orders) {
     return (
       <LogisticsUpload
@@ -82,9 +85,9 @@ export default function LogisticsDashboard() {
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden bg-background">
       {/* Top Bar */}
-      <div className="h-12 shrink-0 bg-[hsl(var(--topbar-bg))] border-b border-border flex items-center justify-between px-4">
+      <div className="h-11 shrink-0 bg-[hsl(var(--topbar-bg))] border-b border-border flex items-center justify-between px-4">
         <h1 className="text-sm font-bold text-foreground tracking-wide font-['Barlow_Condensed'] uppercase">
-          Painel Logístico — Visão Analítica
+          Painel Logístico — Melhoria Contínua
         </h1>
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
           {lastImport && (
@@ -93,29 +96,24 @@ export default function LogisticsDashboard() {
             </span>
           )}
           <span className="text-[10px] bg-card px-2 py-0.5 rounded border border-border">
-            Importação {todayImports.length}/5 do dia
+            Importação {todayImports.length}/5
           </span>
-          {lastImport && (
-            <span className="text-[10px]">
-              Atualizado: {format(lastImport.timestamp, "HH:mm", { locale: ptBR })}
-            </span>
-          )}
           <span>{filtered.length} pedidos</span>
-          <span>{format(clock, "dd/MM/yyyy HH:mm:ss", { locale: ptBR })}</span>
+          <span className="font-mono text-[10px]">{format(clock, "dd/MM/yyyy HH:mm:ss", { locale: ptBR })}</span>
           <Button
             variant="outline"
             size="sm"
-            className="h-7 text-[10px] gap-1 border-border"
+            className="h-6 text-[10px] gap-1 border-border"
             onClick={() => setShowUpload(true)}
           >
             <Upload className="w-3 h-3" />
-            Importar Planilha
+            Importar
           </Button>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="shrink-0 px-4 py-2 border-b border-border bg-[hsl(var(--topbar-bg))]">
+      <div className="shrink-0 px-4 py-1.5 border-b border-border bg-[hsl(var(--topbar-bg))]">
         <LogisticsFilters
           orders={orders}
           dateRange={dateRange}
@@ -133,16 +131,15 @@ export default function LogisticsDashboard() {
         {/* KPIs */}
         <LogisticsKPIs orders={filtered} />
 
-        {/* Charts row 1 — Phase + Conf Sep (DESTAQUE) */}
-        <div className="flex-1 grid grid-cols-2 gap-2 min-h-0">
+        {/* Charts — 2 rows, balanced */}
+        <div className="flex-1 grid grid-cols-3 gap-2 min-h-0">
           <PhaseChart orders={filtered} />
-          <ConfSepChart orders={filtered} />
+          <DailyVolumeChart orders={filtered} />
+          <BottleneckIndicator orders={filtered} />
         </div>
 
-        {/* Charts row 2 + table */}
-        <div className="flex-1 grid grid-cols-3 gap-2 min-h-0">
-          <CarrierPerformanceChart orders={filtered} />
-          <DailyVolumeChart orders={filtered} />
+        <div className="flex-1 grid gap-2 min-h-0" style={{ gridTemplateColumns: hasConfSep ? '1fr 1fr' : '1fr' }}>
+          {hasConfSep && <ConfSepChart orders={filtered} />}
           <RecentOrdersTable orders={filtered} />
         </div>
       </div>

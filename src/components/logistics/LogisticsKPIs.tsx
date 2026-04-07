@@ -33,7 +33,7 @@ export default function LogisticsKPIs({ orders }: Props) {
     return [
       { label: 'Total Pedidos', value: totalOrders.toLocaleString('pt-BR'), icon: Package, color: 'text-primary', highlight: false },
       { label: 'Pedidos/Dia', value: ordersPerDay, icon: TrendingUp, color: 'text-[hsl(var(--success))]', highlight: false },
-      { label: 'Unidades/Dia', value: unitsPerDay, icon: BarChart3, color: 'text-[hsl(var(--success))]', highlight: false },
+      { label: 'Unit. Totais', value: unitsPerDay, icon: BarChart3, color: 'text-[hsl(var(--success))]', highlight: false },
       { label: 'Em Digit.', value: emDigit.toLocaleString('pt-BR'), icon: FileText, color: 'text-[hsl(var(--warning))]', highlight: true },
       { label: 'A Sep.', value: aSep.toLocaleString('pt-BR'), icon: Clock, color: 'text-[hsl(38,80%,65%)]', highlight: true },
       { label: 'Em Sep.', value: emSep.toLocaleString('pt-BR'), icon: BoxSelect, color: 'text-primary', highlight: true },

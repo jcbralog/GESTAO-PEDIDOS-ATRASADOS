@@ -138,10 +138,11 @@ export default function LogisticsDashboard() {
           <BottleneckIndicator orders={filtered} />
         </div>
 
-        <div className="flex-1 grid gap-2 min-h-0" style={{ gridTemplateColumns: hasConfSep ? '1fr 1fr' : '1fr' }}>
-          {hasConfSep && <ConfSepChart orders={filtered} />}
-          <RecentOrdersTable orders={filtered} />
-        </div>
+        {hasConfSep && (
+          <div className="flex-1 min-h-0">
+            <ConfSepChart orders={filtered} />
+          </div>
+        )}
       </div>
     </div>
   );

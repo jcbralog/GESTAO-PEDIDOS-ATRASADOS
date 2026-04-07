@@ -14,7 +14,7 @@ export default function LogisticsKPIs({ orders }: Props) {
     const dates = [...new Set(orders.map(o => o.date))];
     const numDays = Math.max(dates.length, 1);
     const ordersPerDay = (totalOrders / numDays).toFixed(1);
-    const unitsPerDay = (totalUnits / numDays).toFixed(1);
+    const unitsPerDay = totalUnits.toLocaleString('pt-BR');
 
     // Conf Sep stats
     const withConfSep = orders.filter(o => o.dtConfSep);

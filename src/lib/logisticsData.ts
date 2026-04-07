@@ -39,7 +39,7 @@ export function generateDemoOrders(count = 500): Order[] {
     const d = randomDate(start, end);
     const phase = pick(PHASES);
     const leadTime = Math.floor(Math.random() * 10) + 1;
-    const hasSep = ['Em Separação', 'Embalagem', 'Faturado', 'Expedido', 'Em Trânsito', 'Entregue', 'Devolvido'].includes(phase);
+    const hasSep = ['Em Sep.', 'Sep. Conf.', 'Em Cko.', 'Cko Vol. Ok', 'N.F. Conf.', 'Faturado', 'Expedido', 'Em Trânsito', 'Entregue', 'Devolvido'].includes(phase);
     const sepDate = hasSep ? new Date(d.getTime() + Math.random() * 3 * 86400000) : undefined;
     orders.push({
       id: `PED-${String(10000 + i).slice(1)}`,

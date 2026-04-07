@@ -6,7 +6,7 @@ import PhaseChart from '@/components/logistics/PhaseChart';
 import DailyVolumeChart from '@/components/logistics/DailyVolumeChart';
 import ConfSepChart from '@/components/logistics/ConfSepChart';
 import BottleneckIndicator from '@/components/logistics/BottleneckIndicator';
-import RecentOrdersTable from '@/components/logistics/RecentOrdersTable';
+
 import LogisticsUpload from '@/components/logistics/LogisticsUpload';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';

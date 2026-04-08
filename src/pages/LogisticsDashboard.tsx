@@ -6,6 +6,7 @@ import PhaseChart from '@/components/logistics/PhaseChart';
 import DailyVolumeChart from '@/components/logistics/DailyVolumeChart';
 import ConfSepChart from '@/components/logistics/ConfSepChart';
 import BottleneckIndicator from '@/components/logistics/BottleneckIndicator';
+import OverdueOrdersChart from '@/components/logistics/OverdueOrdersChart';
 
 import LogisticsUpload from '@/components/logistics/LogisticsUpload';
 import { format } from 'date-fns';
@@ -132,10 +133,11 @@ export default function LogisticsDashboard() {
         <LogisticsKPIs orders={filtered} />
 
         {/* Charts — 2 rows, balanced */}
-        <div className="flex-1 grid grid-cols-3 gap-2 min-h-0">
+        <div className="flex-1 grid grid-cols-4 gap-2 min-h-0">
           <PhaseChart orders={filtered} />
           <DailyVolumeChart orders={filtered} />
           <BottleneckIndicator orders={filtered} />
+          <OverdueOrdersChart orders={filtered} />
         </div>
 
         {hasConfSep && (

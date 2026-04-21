@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import LogisticsDashboard from "./pages/LogisticsDashboard.tsx";
+import WduDashboard from "./pages/WduDashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -16,7 +17,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LogisticsDashboard />} />
+          <Route path="/" element={<WduDashboard />} />
+          <Route path="/logistica" element={<LogisticsDashboard />} />
           <Route path="/upload" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

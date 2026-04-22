@@ -12,8 +12,8 @@ interface Props {
   orders: WduOrder[];
   selectedPhases: Set<WduPhase>;
   onPhasesChange: (s: Set<WduPhase>) => void;
-  cliente: string;
-  onClienteChange: (v: string) => void;
+  selectedClientes: Set<string>;
+  onClientesChange: (s: Set<string>) => void;
   transportadora: string;
   onTransportadoraChange: (v: string) => void;
   slaFilter: SlaFilter;
@@ -23,10 +23,13 @@ interface Props {
 
 export default function WduFilters({
   orders, selectedPhases, onPhasesChange,
-  cliente, onClienteChange, transportadora, onTransportadoraChange,
+  selectedClientes, onClientesChange,
+  transportadora, onTransportadoraChange,
   slaFilter, onSlaChange, onReset,
 }: Props) {
-  const [open, setOpen] = useState(false);
+  const [openPhases, setOpenPhases] = useState(false);
+  const [openClientes, setOpenClientes] = useState(false);
+  const [clienteSearch, setClienteSearch] = useState('');
 
   const clientes = useMemo(
     () => Array.from(new Set(orders.map(o => o.cliente).filter(Boolean))).sort(),
@@ -37,18 +40,37 @@ export default function WduFilters({
     [orders]
   );
 
+  const filteredClientes = useMemo(() => {
+    const q = clienteSearch.trim().toLowerCase();
+    if (!q) return clientes;
+    return clientes.filter(c => c.toLowerCase().includes(q));
+  }, [clientes, clienteSearch]);
+
   const togglePhase = (p: WduPhase) => {
     const next = new Set(selectedPhases);
     if (next.has(p)) next.delete(p); else next.add(p);
     onPhasesChange(next);
   };
 
+  const toggleCliente = (c: string) => {
+    const next = new Set(selectedClientes);
+    if (next.has(c)) next.delete(c); else next.add(c);
+    onClientesChange(next);
+  };
+
+  const allClientesSelected = selectedClientes.size === 0 || selectedClientes.size === clientes.length;
+  const clienteLabel = allClientesSelected
+    ? `Todos os clientes (${clientes.length})`
+    : selectedClientes.size === 1
+      ? Array.from(selectedClientes)[0]
+      : `${selectedClientes.size} clientes selecionados`;
+
   return (
     <div className="bg-[#1E293B] border border-[#334155] rounded-lg p-3 flex flex-wrap items-center gap-2">
       <Filter className="w-4 h-4 text-[#94A3B8]" />
 
       {/* Phases multi-select */}
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={openPhases} onOpenChange={setOpenPhases}>
         <PopoverTrigger asChild>
           <Button variant="outline" size="sm" className="h-9 bg-[#0F172A] border-[#334155] text-[#CBD5E1] hover:bg-[#334155]/40 hover:text-[#F8FAFC]">
             Fases ({selectedPhases.size}/{WDU_PHASE_ORDER.length})
@@ -77,16 +99,61 @@ export default function WduFilters({
         </PopoverContent>
       </Popover>
 
-      {/* Cliente */}
-      <Select value={cliente} onValueChange={onClienteChange}>
-        <SelectTrigger className="h-9 w-[220px] bg-[#0F172A] border-[#334155] text-[#CBD5E1] text-sm">
-          <SelectValue placeholder="Cliente" />
-        </SelectTrigger>
-        <SelectContent className="bg-[#1E293B] border-[#334155] text-[#CBD5E1]">
-          <SelectItem value="all">Todos os clientes</SelectItem>
-          {clientes.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-        </SelectContent>
-      </Select>
+      {/* Cliente multi-select */}
+      <Popover open={openClientes} onOpenChange={setOpenClientes}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-9 w-[260px] justify-between bg-[#0F172A] border-[#334155] text-[#CBD5E1] hover:bg-[#334155]/40 hover:text-[#F8FAFC]"
+          >
+            <span className="truncate text-left">{clienteLabel}</span>
+            <ChevronDown className="w-3 h-3 ml-1 shrink-0" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[320px] p-2 bg-[#1E293B] border-[#334155]" align="start">
+          <input
+            type="text"
+            placeholder="Buscar cliente…"
+            value={clienteSearch}
+            onChange={(e) => setClienteSearch(e.target.value)}
+            className="w-full mb-2 h-8 px-2 text-sm rounded bg-[#0F172A] border border-[#334155] text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none focus:border-[#3B82F6]"
+          />
+          <div className="max-h-64 overflow-y-auto space-y-1 pr-1">
+            {filteredClientes.length === 0 && (
+              <div className="text-xs text-[#64748B] px-2 py-3 text-center">Nenhum cliente encontrado</div>
+            )}
+            {filteredClientes.map(c => {
+              const checked = selectedClientes.has(c);
+              return (
+                <label key={c} className="flex items-center gap-2 px-2 py-1 rounded hover:bg-[#334155]/40 cursor-pointer text-sm text-[#CBD5E1]">
+                  <span className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${checked ? 'bg-[#3B82F6] border-[#3B82F6]' : 'border-[#475569]'}`}>
+                    {checked && <Check className="w-3 h-3 text-white" />}
+                  </span>
+                  <input type="checkbox" checked={checked} onChange={() => toggleCliente(c)} className="sr-only" />
+                  <span className="truncate">{c}</span>
+                </label>
+              );
+            })}
+          </div>
+          <div className="flex gap-1 pt-2 mt-2 border-t border-[#334155]">
+            <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs" onClick={() => onClientesChange(new Set(clientes))}>Todos</Button>
+            <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs" onClick={() => onClientesChange(new Set())}>Nenhum</Button>
+          </div>
+          {selectedClientes.size > 0 && !allClientesSelected && (
+            <div className="pt-2 mt-2 border-t border-[#334155] flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+              {Array.from(selectedClientes).map(c => (
+                <span key={c} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#3B82F6]/20 text-[#93C5FD] text-[10px]">
+                  <span className="truncate max-w-[160px]">{c}</span>
+                  <button onClick={() => toggleCliente(c)} className="hover:text-white">
+                    <X className="w-2.5 h-2.5" />
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
+        </PopoverContent>
+      </Popover>
 
       {/* Transportadora */}
       <Select value={transportadora} onValueChange={onTransportadoraChange}>

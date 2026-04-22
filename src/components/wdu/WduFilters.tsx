@@ -22,11 +22,16 @@ interface Props {
 }
 
 export default function WduFilters({
-  orders, selectedPhases, onPhasesChange,
-  selectedClientes, onClientesChange,
+  orders,
+  selectedPhases: selectedPhasesProp,
+  onPhasesChange,
+  selectedClientes: selectedClientesProp,
+  onClientesChange,
   transportadora, onTransportadoraChange,
   slaFilter, onSlaChange, onReset,
 }: Props) {
+  const selectedPhases = selectedPhasesProp ?? new Set<WduPhase>();
+  const selectedClientes = selectedClientesProp ?? new Set<string>();
   const [openPhases, setOpenPhases] = useState(false);
   const [openClientes, setOpenClientes] = useState(false);
   const [clienteSearch, setClienteSearch] = useState('');

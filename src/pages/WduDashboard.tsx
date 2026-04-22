@@ -10,6 +10,7 @@ import WduGauge from '@/components/wdu/WduGauge';
 import WduFilters, { type SlaFilter } from '@/components/wdu/WduFilters';
 import WduExport from '@/components/wdu/WduExport';
 import WduUploadButton from '@/components/wdu/WduUploadButton';
+import WduPhaseBarChart from '@/components/wdu/WduPhaseBarChart';
 import { generateExtendedMock, computeMetrics, WDU_PHASE_ORDER, type WduOrder, type WduPhase } from '@/lib/wduData';
 
 export default function WduDashboard() {
@@ -21,7 +22,7 @@ export default function WduDashboard() {
   // Filters
   const [selectedPhases, setSelectedPhases] = useState<Set<WduPhase>>(() => new Set(WDU_PHASE_ORDER));
   const [selectedPhaseDrill, setSelectedPhaseDrill] = useState<WduPhase | null>(null);
-  const [cliente, setCliente] = useState('all');
+  const [selectedClientes, setSelectedClientes] = useState<Set<string>>(() => new Set());
   const [transportadora, setTransportadora] = useState('all');
   const [slaFilter, setSlaFilter] = useState<SlaFilter>('all');
 
@@ -41,17 +42,18 @@ export default function WduDashboard() {
     setUpdatedAt(new Date());
     setSelectedPhases(new Set(WDU_PHASE_ORDER));
     setSelectedPhaseDrill(null);
-    setCliente('all');
+    setSelectedClientes(new Set());
     setTransportadora('all');
     setSlaFilter('all');
   };
 
   const filtered = useMemo(() => {
     const now = new Date();
+    const hasClienteFilter = selectedClientes.size > 0;
     return orders.filter(o => {
       if (selectedPhaseDrill && o.sitFase !== selectedPhaseDrill) return false;
       if (!selectedPhases.has(o.sitFase)) return false;
-      if (cliente !== 'all' && o.cliente !== cliente) return false;
+      if (hasClienteFilter && !selectedClientes.has(o.cliente)) return false;
       if (transportadora !== 'all' && o.transportadora !== transportadora) return false;
       if (slaFilter !== 'all') {
         const m = computeMetrics(o, now);
@@ -60,12 +62,12 @@ export default function WduDashboard() {
       }
       return true;
     });
-  }, [orders, selectedPhases, selectedPhaseDrill, cliente, transportadora, slaFilter]);
+  }, [orders, selectedPhases, selectedPhaseDrill, selectedClientes, transportadora, slaFilter]);
 
   const resetFilters = () => {
     setSelectedPhases(new Set(WDU_PHASE_ORDER));
     setSelectedPhaseDrill(null);
-    setCliente('all');
+    setSelectedClientes(new Set());
     setTransportadora('all');
     setSlaFilter('all');
   };
@@ -107,14 +109,17 @@ export default function WduDashboard() {
           orders={orders}
           selectedPhases={selectedPhases}
           onPhasesChange={setSelectedPhases}
-          cliente={cliente}
-          onClienteChange={setCliente}
+          selectedClientes={selectedClientes}
+          onClientesChange={setSelectedClientes}
           transportadora={transportadora}
           onTransportadoraChange={setTransportadora}
           slaFilter={slaFilter}
           onSlaChange={setSlaFilter}
           onReset={resetFilters}
         />
+
+        {/* Operational bar chart — for screen-share with operational team */}
+        <WduPhaseBarChart orders={filtered} />
 
         {/* Phase funnel table */}
         <WduPhaseTable

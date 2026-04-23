@@ -107,8 +107,10 @@ export default function WduPhaseBarChart({ orders }: Props) {
                 dataKey="pedidos"
                 radius={[3, 3, 0, 0]}
                 cursor="pointer"
-                onClick={(e: { fase?: string }) => {
-                  if (e?.fase) setDrillPhase(e.fase as WduPhase);
+                onClick={(payload) => {
+                  const fase = (payload as unknown as { fase?: string })?.fase
+                    ?? (payload as unknown as { payload?: { fase?: string } })?.payload?.fase;
+                  if (fase) setDrillPhase(fase as WduPhase);
                 }}
               >
                 {data.map((entry, idx) => (

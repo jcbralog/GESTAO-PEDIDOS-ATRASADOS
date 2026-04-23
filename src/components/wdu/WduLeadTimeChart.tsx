@@ -19,11 +19,11 @@ export default function WduLeadTimeChart({ orders }: Props) {
   }, [orders]);
 
   return (
-    <div className="bg-[#1E293B] border border-[#334155] rounded-lg p-4 h-full flex flex-col">
-      <h3 className="text-xs uppercase tracking-[0.1em] text-[#94A3B8] font-semibold mb-3">
+    <div className="bg-[#1E293B] border border-[#334155] rounded-lg p-3 h-full flex flex-col">
+      <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#94A3B8] font-semibold mb-2">
         Lead Time Médio por Fase (dias úteis)
       </h3>
-      <div className="flex-1 min-h-[280px]">
+      <div className="flex-1 min-h-[240px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical" margin={{ top: 8, right: 40, bottom: 8, left: 8 }}>
             <XAxis type="number" stroke="#94A3B8" tick={{ fontSize: 11, fill: '#94A3B8' }} />

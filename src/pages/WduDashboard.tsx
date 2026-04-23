@@ -118,25 +118,27 @@ export default function WduDashboard() {
           onReset={resetFilters}
         />
 
-        {/* Operational bar chart — for screen-share with operational team */}
-        <WduPhaseBarChart orders={filtered} />
+        {/* Phase analysis: funnel table + bar chart side-by-side */}
+        <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
+          <div className="xl:col-span-2">
+            <WduPhaseTable
+              orders={filtered}
+              selectedPhase={selectedPhaseDrill}
+              onSelectPhase={setSelectedPhaseDrill}
+            />
+          </div>
+          <div className="xl:col-span-3">
+            <WduPhaseBarChart orders={filtered} />
+          </div>
+        </div>
 
-        {/* Phase funnel table */}
-        <WduPhaseTable
-          orders={filtered}
-          selectedPhase={selectedPhaseDrill}
-          onSelectPhase={setSelectedPhaseDrill}
-        />
-
-        {/* Lead time analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Lead time + health row */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
           <div className="lg:col-span-2">
             <WduLeadTimeChart orders={filtered} />
           </div>
-          <div className="grid grid-rows-2 gap-4">
-            <WduGauge orders={filtered} />
-            <WduTopOverdue orders={filtered} />
-          </div>
+          <WduGauge orders={filtered} />
+          <WduTopOverdue orders={filtered} />
         </div>
 
         <footer className="text-center text-[10px] text-[#64748B] pt-4 pb-2">

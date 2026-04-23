@@ -16,9 +16,9 @@ export default function WduTopOverdue({ orders }: Props) {
   }, [orders]);
 
   return (
-    <div className="bg-[#7F1D1D] border border-[#EF4444]/40 rounded-lg p-4 h-full flex flex-col">
-      <h3 className="text-xs uppercase tracking-[0.1em] text-white font-semibold mb-3 flex items-center gap-2">
-        <AlertTriangle className="w-4 h-4" />
+    <div className="bg-gradient-to-br from-[#7F1D1D] to-[#991B1B] border border-[#EF4444]/40 rounded-lg p-3 h-full flex flex-col">
+      <h3 className="text-[11px] uppercase tracking-[0.1em] text-white font-semibold mb-2 flex items-center gap-1.5">
+        <AlertTriangle className="w-3.5 h-3.5" />
         Top 5 Mais Atrasados
       </h3>
       {top.length === 0 ? (

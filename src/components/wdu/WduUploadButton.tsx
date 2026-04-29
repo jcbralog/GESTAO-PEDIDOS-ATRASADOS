@@ -42,7 +42,7 @@ export default function WduUploadButton({ onLoaded }: Props) {
   };
 
   return (
-    <Button onClick={pick} disabled={busy} size="sm" className="h-9 bg-[#10B981] hover:bg-[#059669] text-white">
+    <Button onClick={pick} disabled={busy} size="sm" className="h-9 bg-white border border-[#10B981] text-[#059669] hover:bg-[#F0FDF4] hover:text-[#059669]">
       <Upload className="w-4 h-4 mr-1.5" />
       {busy ? 'Processando...' : 'Importar Excel'}
     </Button>

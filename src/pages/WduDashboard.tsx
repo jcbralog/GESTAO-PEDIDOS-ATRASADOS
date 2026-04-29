@@ -73,26 +73,26 @@ export default function WduDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-[#F8FAFC] font-body">
+    <div className="min-h-screen bg-[#F9FAFB] text-[#0F172A] font-body">
       {/* Top Bar */}
-      <header className="sticky top-0 z-30 bg-[#0F172A]/95 backdrop-blur border-b border-[#334155]">
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur border-b-2 border-[#10B981]/30 shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-lg bg-[#3B82F6] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#10B981] to-[#059669] flex items-center justify-center shrink-0 shadow-md shadow-[#10B981]/30">
               <Package className="w-5 h-5 text-white" />
             </div>
             <div className="min-w-0">
-              <h1 className="text-lg font-bold leading-tight truncate">Painel de Saída WDU</h1>
-              <p className="text-[11px] text-[#94A3B8] leading-tight">
+              <h1 className="text-lg font-bold leading-tight truncate text-[#0F172A]">Painel de Saída WDU</h1>
+              <p className="text-[11px] text-[#64748B] leading-tight">
                 Bralog Logística Ltda – ES
-                {isMock && <span className="ml-2 px-1.5 py-0.5 rounded bg-[#F59E0B]/20 text-[#F59E0B] text-[10px] font-semibold">DEMO</span>}
+                {isMock && <span className="ml-2 px-1.5 py-0.5 rounded bg-[#FEF3C7] text-[#B45309] text-[10px] font-semibold">DEMO</span>}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[11px] text-[#94A3B8]">
-              <span className="text-[#CBD5E1]">{fileName}</span> • Atualizado em:{' '}
-              <span className="font-mono text-[#F8FAFC]">{format(updatedAt, "dd/MM/yyyy HH:mm", { locale: ptBR })}</span>
+            <span className="text-[11px] text-[#64748B]">
+              <span className="text-[#0F172A]">{fileName}</span> • Atualizado em:{' '}
+              <span className="font-mono text-[#0F172A]">{format(updatedAt, "dd/MM/yyyy HH:mm", { locale: ptBR })}</span>
             </span>
             <WduUploadButton onLoaded={handleLoaded} />
             <WduExport orders={filtered} printRef={printRef} />
@@ -141,7 +141,7 @@ export default function WduDashboard() {
           <WduTopOverdue orders={filtered} />
         </div>
 
-        <footer className="text-center text-[10px] text-[#64748B] pt-4 pb-2">
+        <footer className="text-center text-[10px] text-[#94A3B8] pt-4 pb-2">
           {filtered.length.toLocaleString('pt-BR')} pedidos exibidos • Lead time considera dias úteis (seg–sex), excluindo feriados nacionais, ES e Vitória/ES.
         </footer>
       </main>

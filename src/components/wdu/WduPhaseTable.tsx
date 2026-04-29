@@ -39,22 +39,22 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
 
   return (
     <>
-      <div className="bg-[#1E293B] border border-[#334155] rounded-lg overflow-hidden h-full flex flex-col">
-        <div className="px-3 py-2 border-b border-[#334155] flex items-center justify-between">
-          <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#94A3B8] font-semibold">Funil por Situação / Fase</h3>
+      <div className="bg-white border border-[#E5E7EB] rounded-lg overflow-hidden h-full flex flex-col shadow-sm">
+        <div className="px-3 py-2 border-b border-[#E5E7EB] bg-[#F0FDF4] flex items-center justify-between">
+          <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#065F46] font-semibold">Funil por Situação / Fase</h3>
           {selectedPhase && (
             <button
               onClick={() => onSelectPhase(null)}
-              className="text-[10px] text-[#3B82F6] hover:underline"
+              className="text-[10px] text-[#10B981] hover:underline font-semibold"
             >
               Limpar ({selectedPhase})
             </button>
           )}
         </div>
         <div className="overflow-x-auto flex-1">
-          <table className="w-full text-[12px] text-[#CBD5E1]">
-            <thead className="bg-[#0F172A]/50">
-              <tr className="text-left text-[10px] uppercase text-[#94A3B8] border-b border-[#334155]">
+          <table className="w-full text-[12px] text-[#334155]">
+            <thead className="bg-[#F9FAFB]">
+              <tr className="text-left text-[10px] uppercase text-[#64748B] border-b border-[#E5E7EB]">
                 <th className="px-3 py-2 font-medium">Fase</th>
                 <th className="px-2 py-2 font-medium text-right">Ped.</th>
                 <th className="px-2 py-2 font-medium text-right">Lead</th>
@@ -68,8 +68,8 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
                 return (
                   <tr
                     key={r.phase}
-                    className={`border-b border-[#334155]/50 transition-colors ${
-                      isSelected ? 'bg-[#3B82F6]/10' : 'hover:bg-[#334155]/30'
+                    className={`border-b border-[#F1F5F9] transition-colors ${
+                      isSelected ? 'bg-[#D1FAE5]/50' : 'hover:bg-[#F0FDF4]'
                     }`}
                   >
                     <td className="px-3 py-1.5">
@@ -84,7 +84,7 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
                         </button>
                         <button
                           onClick={() => setDrillPhase(r.phase)}
-                          className="text-[10px] text-[#64748B] hover:text-[#3B82F6]"
+                          className="text-[10px] text-[#94A3B8] hover:text-[#10B981]"
                           title="Ver pedidos / clientes"
                         >
                           ↗
@@ -94,12 +94,12 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
                     <td className="px-2 py-1.5 text-right tabular-nums">
                       <button
                         onClick={() => setDrillPhase(r.phase)}
-                        className="hover:text-[#3B82F6] hover:underline"
+                        className="hover:text-[#10B981] hover:underline font-semibold"
                       >
                         {r.pedidos.toLocaleString('pt-BR')}
                       </button>
                     </td>
-                    <td className={`px-2 py-1.5 text-right tabular-nums font-semibold ${r.leadAvg > 1 ? 'text-[#EF4444]' : 'text-[#CBD5E1]'}`}>
+                    <td className={`px-2 py-1.5 text-right tabular-nums font-semibold ${r.leadAvg > 1 ? 'text-[#DC2626]' : 'text-[#334155]'}`}>
                       {r.leadAvg.toFixed(1).replace('.', ',')}d
                     </td>
                     <td className="px-2 py-1.5 text-right">
@@ -111,18 +111,18 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
                           {r.emAtraso}
                         </button>
                       ) : (
-                        <span className="text-[#64748B]">0</span>
+                        <span className="text-[#94A3B8]">0</span>
                       )}
                     </td>
                     <td className="px-3 py-1.5">
                       <div className="flex items-center gap-1.5">
-                        <div className="flex-1 h-1.5 bg-[#0F172A] rounded-full overflow-hidden">
+                        <div className="flex-1 h-1.5 bg-[#F1F5F9] rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full transition-all"
                             style={{ width: `${r.pct}%`, backgroundColor: GROUP_COLORS[r.group] }}
                           />
                         </div>
-                        <span className="text-[10px] text-[#94A3B8] w-9 text-right tabular-nums">
+                        <span className="text-[10px] text-[#64748B] w-9 text-right tabular-nums">
                           {r.pct.toFixed(1)}%
                         </span>
                       </div>
@@ -132,12 +132,12 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
               })}
             </tbody>
             <tfoot>
-              <tr className="bg-[#0F172A] text-[#F8FAFC] font-semibold">
+              <tr className="bg-[#10B981] text-white font-semibold">
                 <td className="px-3 py-2 text-[10px] uppercase tracking-wider">Totais</td>
                 <td className="px-2 py-2 text-right tabular-nums text-[12px]">{totals.pedidos.toLocaleString('pt-BR')}</td>
-                <td className="px-2 py-2 text-right text-[#94A3B8]">—</td>
-                <td className="px-2 py-2 text-right tabular-nums text-[#EF4444] text-[12px]">{totals.emAtraso}</td>
-                <td className="px-3 py-2 text-right text-[#94A3B8] text-[10px]">100%</td>
+                <td className="px-2 py-2 text-right text-white/70">—</td>
+                <td className="px-2 py-2 text-right tabular-nums text-[12px]">{totals.emAtraso}</td>
+                <td className="px-3 py-2 text-right text-white/80 text-[10px]">100%</td>
               </tr>
             </tfoot>
           </table>

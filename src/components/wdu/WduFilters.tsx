@@ -70,25 +70,27 @@ export default function WduFilters({
       ? Array.from(selectedClientes)[0]
       : `${selectedClientes.size} clientes selecionados`;
 
+  const triggerCls = "h-9 bg-white border-[#E5E7EB] text-[#0F172A] hover:bg-[#F0FDF4] hover:border-[#10B981] hover:text-[#0F172A]";
+
   return (
-    <div className="bg-[#1E293B] border border-[#334155] rounded-lg p-3 flex flex-wrap items-center gap-2">
-      <Filter className="w-4 h-4 text-[#94A3B8]" />
+    <div className="bg-white border border-[#E5E7EB] rounded-lg p-3 flex flex-wrap items-center gap-2 shadow-sm">
+      <Filter className="w-4 h-4 text-[#10B981]" />
 
       {/* Phases multi-select */}
       <Popover open={openPhases} onOpenChange={setOpenPhases}>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className="h-9 bg-[#0F172A] border-[#334155] text-[#CBD5E1] hover:bg-[#334155]/40 hover:text-[#F8FAFC]">
+          <Button variant="outline" size="sm" className={triggerCls}>
             Fases ({selectedPhases.size}/{WDU_PHASE_ORDER.length})
             <ChevronDown className="w-3 h-3 ml-1" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-56 p-2 bg-[#1E293B] border-[#334155]">
+        <PopoverContent className="w-56 p-2 bg-white border-[#E5E7EB]">
           <div className="space-y-1">
             {WDU_PHASE_ORDER.map(p => {
               const checked = selectedPhases.has(p);
               return (
-                <label key={p} className="flex items-center gap-2 px-2 py-1 rounded hover:bg-[#334155]/40 cursor-pointer text-sm text-[#CBD5E1]">
-                  <span className={`w-4 h-4 rounded border flex items-center justify-center ${checked ? 'bg-[#3B82F6] border-[#3B82F6]' : 'border-[#475569]'}`}>
+                <label key={p} className="flex items-center gap-2 px-2 py-1 rounded hover:bg-[#F0FDF4] cursor-pointer text-sm text-[#334155]">
+                  <span className={`w-4 h-4 rounded border flex items-center justify-center ${checked ? 'bg-[#10B981] border-[#10B981]' : 'border-[#CBD5E1]'}`}>
                     {checked && <Check className="w-3 h-3 text-white" />}
                   </span>
                   <input type="checkbox" checked={checked} onChange={() => togglePhase(p)} className="sr-only" />
@@ -96,9 +98,9 @@ export default function WduFilters({
                 </label>
               );
             })}
-            <div className="flex gap-1 pt-2 border-t border-[#334155]">
-              <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs" onClick={() => onPhasesChange(new Set(WDU_PHASE_ORDER))}>Todas</Button>
-              <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs" onClick={() => onPhasesChange(new Set())}>Nenhuma</Button>
+            <div className="flex gap-1 pt-2 border-t border-[#E5E7EB]">
+              <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs hover:bg-[#F0FDF4] hover:text-[#059669]" onClick={() => onPhasesChange(new Set(WDU_PHASE_ORDER))}>Todas</Button>
+              <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs hover:bg-[#F0FDF4] hover:text-[#059669]" onClick={() => onPhasesChange(new Set())}>Nenhuma</Button>
             </div>
           </div>
         </PopoverContent>
@@ -110,29 +112,29 @@ export default function WduFilters({
           <Button
             variant="outline"
             size="sm"
-            className="h-9 w-[260px] justify-between bg-[#0F172A] border-[#334155] text-[#CBD5E1] hover:bg-[#334155]/40 hover:text-[#F8FAFC]"
+            className={`${triggerCls} w-[260px] justify-between`}
           >
             <span className="truncate text-left">{clienteLabel}</span>
             <ChevronDown className="w-3 h-3 ml-1 shrink-0" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[320px] p-2 bg-[#1E293B] border-[#334155]" align="start">
+        <PopoverContent className="w-[320px] p-2 bg-white border-[#E5E7EB]" align="start">
           <input
             type="text"
             placeholder="Buscar cliente…"
             value={clienteSearch}
             onChange={(e) => setClienteSearch(e.target.value)}
-            className="w-full mb-2 h-8 px-2 text-sm rounded bg-[#0F172A] border border-[#334155] text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none focus:border-[#3B82F6]"
+            className="w-full mb-2 h-8 px-2 text-sm rounded bg-white border border-[#E5E7EB] text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#10B981]"
           />
           <div className="max-h-64 overflow-y-auto space-y-1 pr-1">
             {filteredClientes.length === 0 && (
-              <div className="text-xs text-[#64748B] px-2 py-3 text-center">Nenhum cliente encontrado</div>
+              <div className="text-xs text-[#94A3B8] px-2 py-3 text-center">Nenhum cliente encontrado</div>
             )}
             {filteredClientes.map(c => {
               const checked = selectedClientes.has(c);
               return (
-                <label key={c} className="flex items-center gap-2 px-2 py-1 rounded hover:bg-[#334155]/40 cursor-pointer text-sm text-[#CBD5E1]">
-                  <span className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${checked ? 'bg-[#3B82F6] border-[#3B82F6]' : 'border-[#475569]'}`}>
+                <label key={c} className="flex items-center gap-2 px-2 py-1 rounded hover:bg-[#F0FDF4] cursor-pointer text-sm text-[#334155]">
+                  <span className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${checked ? 'bg-[#10B981] border-[#10B981]' : 'border-[#CBD5E1]'}`}>
                     {checked && <Check className="w-3 h-3 text-white" />}
                   </span>
                   <input type="checkbox" checked={checked} onChange={() => toggleCliente(c)} className="sr-only" />
@@ -141,16 +143,16 @@ export default function WduFilters({
               );
             })}
           </div>
-          <div className="flex gap-1 pt-2 mt-2 border-t border-[#334155]">
-            <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs" onClick={() => onClientesChange(new Set(clientes))}>Todos</Button>
-            <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs" onClick={() => onClientesChange(new Set())}>Nenhum</Button>
+          <div className="flex gap-1 pt-2 mt-2 border-t border-[#E5E7EB]">
+            <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs hover:bg-[#F0FDF4] hover:text-[#059669]" onClick={() => onClientesChange(new Set(clientes))}>Todos</Button>
+            <Button size="sm" variant="ghost" className="flex-1 h-7 text-xs hover:bg-[#F0FDF4] hover:text-[#059669]" onClick={() => onClientesChange(new Set())}>Nenhum</Button>
           </div>
           {selectedClientes.size > 0 && !allClientesSelected && (
-            <div className="pt-2 mt-2 border-t border-[#334155] flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+            <div className="pt-2 mt-2 border-t border-[#E5E7EB] flex flex-wrap gap-1 max-h-24 overflow-y-auto">
               {Array.from(selectedClientes).map(c => (
-                <span key={c} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#3B82F6]/20 text-[#93C5FD] text-[10px]">
+                <span key={c} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#D1FAE5] text-[#065F46] text-[10px]">
                   <span className="truncate max-w-[160px]">{c}</span>
-                  <button onClick={() => toggleCliente(c)} className="hover:text-white">
+                  <button onClick={() => toggleCliente(c)} className="hover:text-[#059669]">
                     <X className="w-2.5 h-2.5" />
                   </button>
                 </span>
@@ -162,17 +164,17 @@ export default function WduFilters({
 
       {/* Transportadora */}
       <Select value={transportadora} onValueChange={onTransportadoraChange}>
-        <SelectTrigger className="h-9 w-[180px] bg-[#0F172A] border-[#334155] text-[#CBD5E1] text-sm">
+        <SelectTrigger className="h-9 w-[180px] bg-white border-[#E5E7EB] text-[#0F172A] text-sm">
           <SelectValue placeholder="Transportadora" />
         </SelectTrigger>
-        <SelectContent className="bg-[#1E293B] border-[#334155] text-[#CBD5E1]">
+        <SelectContent className="bg-white border-[#E5E7EB] text-[#334155]">
           <SelectItem value="all">Todas transportadoras</SelectItem>
           {transportadoras.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
         </SelectContent>
       </Select>
 
       {/* SLA toggle */}
-      <div className="inline-flex rounded-md border border-[#334155] overflow-hidden">
+      <div className="inline-flex rounded-md border border-[#E5E7EB] overflow-hidden">
         {(['all', 'on_time', 'overdue'] as SlaFilter[]).map(s => (
           <button
             key={s}
@@ -181,8 +183,8 @@ export default function WduFilters({
               slaFilter === s
                 ? s === 'overdue' ? 'bg-[#EF4444] text-white'
                   : s === 'on_time' ? 'bg-[#10B981] text-white'
-                  : 'bg-[#3B82F6] text-white'
-                : 'bg-[#0F172A] text-[#94A3B8] hover:text-[#F8FAFC]'
+                  : 'bg-[#059669] text-white'
+                : 'bg-white text-[#64748B] hover:text-[#0F172A] hover:bg-[#F0FDF4]'
             }`}
           >
             {s === 'all' ? 'Todos' : s === 'on_time' ? 'No Prazo' : 'Em Atraso'}
@@ -194,7 +196,7 @@ export default function WduFilters({
         size="sm"
         variant="outline"
         onClick={onReset}
-        className="h-9 ml-auto bg-[#3B82F6] border-[#3B82F6] text-white hover:bg-[#2563EB] hover:text-white"
+        className="h-9 ml-auto bg-[#10B981] border-[#10B981] text-white hover:bg-[#059669] hover:text-white hover:border-[#059669]"
       >
         <X className="w-3.5 h-3.5 mr-1" />
         Limpar Filtros

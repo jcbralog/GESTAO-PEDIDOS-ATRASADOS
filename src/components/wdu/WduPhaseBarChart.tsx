@@ -35,23 +35,25 @@ export default function WduPhaseBarChart({ orders }: Props) {
 
   return (
     <>
-      <div className="bg-[#1E293B] border border-[#334155] rounded-lg p-3 h-full flex flex-col">
-        <div className="flex items-start justify-between mb-2 flex-wrap gap-2">
+      <div className="bg-white border border-[#E5E7EB] rounded-lg p-3 h-full flex flex-col shadow-sm">
+        <div className="flex items-start justify-between mb-2 flex-wrap gap-2 pb-2 border-b border-[#E5E7EB]">
           <div className="flex items-center gap-2">
-            <BarChart3 className="w-4 h-4 text-[#3B82F6]" />
+            <div className="w-7 h-7 rounded bg-[#D1FAE5] flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-[#059669]" />
+            </div>
             <div>
-              <h2 className="text-[11px] font-bold uppercase tracking-wider text-[#F8FAFC]">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-[#0F172A]">
                 Pedidos por Situação / Fase
               </h2>
-              <p className="text-[10px] text-[#94A3B8]">Clique nas barras para detalhar</p>
+              <p className="text-[10px] text-[#64748B]">Clique nas barras para detalhar</p>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-[9px] uppercase tracking-wider text-[#94A3B8]">Total</div>
-            <div className="text-sm font-bold text-[#F8FAFC] font-mono">
+            <div className="text-[9px] uppercase tracking-wider text-[#64748B]">Total</div>
+            <div className="text-sm font-bold text-[#059669] font-mono">
               {total.toLocaleString('pt-BR')}
             </div>
-            <div className="text-[9px] text-[#64748B] font-mono">
+            <div className="text-[9px] text-[#94A3B8] font-mono">
               {format(new Date(), "dd/MM HH:mm", { locale: ptBR })}
             </div>
           </div>
@@ -62,7 +64,7 @@ export default function WduPhaseBarChart({ orders }: Props) {
           {Object.entries(GROUP_COLORS).map(([group, color]) => (
             <div key={group} className="flex items-center gap-1">
               <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: color }} />
-              <span className="text-[#CBD5E1]">{group}</span>
+              <span className="text-[#475569]">{group}</span>
             </div>
           ))}
         </div>
@@ -70,33 +72,34 @@ export default function WduPhaseBarChart({ orders }: Props) {
         <div className="flex-1 min-h-[260px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} margin={{ top: 20, right: 8, left: 0, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
               <XAxis
                 dataKey="fase"
-                tick={{ fill: '#CBD5E1', fontSize: 10, fontWeight: 600 }}
-                axisLine={{ stroke: '#334155' }}
-                tickLine={{ stroke: '#334155' }}
+                tick={{ fill: '#475569', fontSize: 10, fontWeight: 600 }}
+                axisLine={{ stroke: '#E5E7EB' }}
+                tickLine={{ stroke: '#E5E7EB' }}
                 interval={0}
                 angle={-25}
                 textAnchor="end"
                 height={60}
               />
               <YAxis
-                tick={{ fill: '#94A3B8', fontSize: 10 }}
-                axisLine={{ stroke: '#334155' }}
-                tickLine={{ stroke: '#334155' }}
+                tick={{ fill: '#64748B', fontSize: 10 }}
+                axisLine={{ stroke: '#E5E7EB' }}
+                tickLine={{ stroke: '#E5E7EB' }}
                 allowDecimals={false}
                 domain={[0, Math.ceil(maxValue * 1.15)]}
                 width={32}
               />
               <Tooltip
-                cursor={{ fill: 'rgba(59,130,246,0.08)' }}
+                cursor={{ fill: 'rgba(16,185,129,0.08)' }}
                 contentStyle={{
-                  backgroundColor: '#0F172A',
-                  border: '1px solid #334155',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #10B981',
                   borderRadius: 6,
-                  color: '#F8FAFC',
+                  color: '#0F172A',
                   fontSize: 11,
+                  boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
                 }}
                 formatter={(value: number) => {
                   const pct = total ? ((value / total) * 100).toFixed(1) : '0';
@@ -119,7 +122,7 @@ export default function WduPhaseBarChart({ orders }: Props) {
                 <LabelList
                   dataKey="pedidos"
                   position="top"
-                  fill="#F8FAFC"
+                  fill="#0F172A"
                   fontSize={11}
                   fontWeight={700}
                   formatter={(v: number) => (v > 0 ? v.toLocaleString('pt-BR') : '')}

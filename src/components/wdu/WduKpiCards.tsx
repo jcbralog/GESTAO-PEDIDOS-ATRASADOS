@@ -25,14 +25,14 @@ export default function WduKpiCards({ orders }: Props) {
   }, [orders]);
 
   const atrasoColor =
-    stats.pctAtraso > 30 ? 'bg-gradient-to-br from-[#7F1D1D] to-[#991B1B] border-[#EF4444]/50'
-    : stats.pctAtraso >= 15 ? 'bg-gradient-to-br from-[#78350F] to-[#92400E] border-[#F59E0B]/50'
-    : 'bg-gradient-to-br from-[#064E3B] to-[#065F46] border-[#10B981]/50';
+    stats.pctAtraso > 30 ? 'bg-gradient-to-br from-[#FEE2E2] to-[#FECACA] border-[#EF4444]/40'
+    : stats.pctAtraso >= 15 ? 'bg-gradient-to-br from-[#FEF3C7] to-[#FDE68A] border-[#F59E0B]/40'
+    : 'bg-gradient-to-br from-[#D1FAE5] to-[#A7F3D0] border-[#10B981]/40';
 
-  const atrasoIconColor =
-    stats.pctAtraso > 30 ? 'text-[#FCA5A5]'
-    : stats.pctAtraso >= 15 ? 'text-[#FCD34D]'
-    : 'text-[#6EE7B7]';
+  const atrasoTextColor =
+    stats.pctAtraso > 30 ? 'text-[#991B1B]'
+    : stats.pctAtraso >= 15 ? 'text-[#92400E]'
+    : 'text-[#065F46]';
 
   const cards: Array<{ key: DrillKey; label: string; value: string; icon: typeof Package }> = [
     { key: 'all', label: 'Total Pedidos', value: stats.totalPedidos.toLocaleString('pt-BR'), icon: Package },
@@ -81,37 +81,37 @@ export default function WduKpiCards({ orders }: Props) {
           <button
             key={c.label}
             onClick={() => setDrill(c.key)}
-            className="group bg-[#1E293B] border border-[#334155] rounded-lg p-3 text-left hover:border-[#3B82F6]/60 hover:bg-[#1E293B]/80 transition-all"
+            className="group bg-white border border-[#E5E7EB] rounded-lg p-3 text-left hover:border-[#10B981] hover:shadow-md hover:shadow-[#10B981]/10 transition-all"
           >
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase tracking-[0.1em] text-[#94A3B8] font-semibold">{c.label}</span>
-              <c.icon className="w-3.5 h-3.5 text-[#3B82F6]" />
+              <span className="text-[10px] uppercase tracking-[0.1em] text-[#64748B] font-semibold">{c.label}</span>
+              <c.icon className="w-3.5 h-3.5 text-[#10B981]" />
             </div>
             <div className="flex items-end justify-between">
-              <div className="text-2xl font-bold text-[#F8FAFC] leading-none">{c.value}</div>
-              <ChevronRight className="w-3.5 h-3.5 text-[#64748B] group-hover:text-[#3B82F6] group-hover:translate-x-0.5 transition-all" />
+              <div className="text-2xl font-bold text-[#0F172A] leading-none">{c.value}</div>
+              <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#10B981] group-hover:translate-x-0.5 transition-all" />
             </div>
-            <div className="text-[10px] text-[#64748B] mt-1.5 group-hover:text-[#3B82F6]">Clique para detalhar</div>
+            <div className="text-[10px] text-[#94A3B8] mt-1.5 group-hover:text-[#10B981]">Clique para detalhar</div>
           </button>
         ))}
         <button
           onClick={() => setDrill('overdue')}
-          className={`group border rounded-lg p-3 text-left text-white transition-all hover:scale-[1.01] hover:shadow-lg hover:shadow-[#EF4444]/20 ${atrasoColor}`}
+          className={`group border rounded-lg p-3 text-left transition-all hover:scale-[1.01] hover:shadow-md ${atrasoColor} ${atrasoTextColor}`}
         >
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] uppercase tracking-[0.1em] font-semibold opacity-90">Em Atraso</span>
-            <Clock className={`w-3.5 h-3.5 ${atrasoIconColor}`} />
+            <span className="text-[10px] uppercase tracking-[0.1em] font-semibold opacity-80">Em Atraso</span>
+            <Clock className="w-3.5 h-3.5" />
           </div>
           <div className="flex items-end justify-between">
             <div className="text-2xl font-bold leading-none">
               {stats.emAtraso.toLocaleString('pt-BR')}
-              <span className="text-sm font-semibold opacity-90 ml-1.5">
+              <span className="text-sm font-semibold opacity-80 ml-1.5">
                 ({stats.pctAtraso.toFixed(1).replace('.', ',')}%)
               </span>
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-white/70 group-hover:translate-x-0.5 transition-all" />
+            <ChevronRight className="w-3.5 h-3.5 opacity-70 group-hover:translate-x-0.5 transition-all" />
           </div>
-          <div className="text-[10px] text-white/70 mt-1.5">Clique para conferir clientes</div>
+          <div className="text-[10px] opacity-70 mt-1.5">Clique para conferir clientes</div>
         </button>
       </div>
 

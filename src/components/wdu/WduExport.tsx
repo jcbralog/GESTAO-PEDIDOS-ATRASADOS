@@ -43,7 +43,7 @@ export default function WduExport({ orders, printRef }: Props) {
     if (!printRef.current) return;
     setBusy(true);
     try {
-      const canvas = await html2canvas(printRef.current, { backgroundColor: '#0F172A', scale: 1.4 });
+      const canvas = await html2canvas(printRef.current, { backgroundColor: '#F9FAFB', scale: 1.4 });
       const img = canvas.toDataURL('image/png');
       const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
       const pw = pdf.internal.pageSize.getWidth();
@@ -61,18 +61,18 @@ export default function WduExport({ orders, printRef }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="sm" disabled={busy} className="h-9 bg-[#3B82F6] hover:bg-[#2563EB] text-white">
+        <Button size="sm" disabled={busy} className="h-9 bg-[#10B981] hover:bg-[#059669] text-white">
           <Download className="w-4 h-4 mr-1.5" />
           {busy ? 'Gerando...' : 'Exportar'}
           <ChevronDown className="w-3 h-3 ml-1" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-[#1E293B] border-[#334155] text-[#CBD5E1]">
-        <DropdownMenuItem onClick={exportXlsx} className="cursor-pointer focus:bg-[#334155]">
+      <DropdownMenuContent align="end" className="bg-white border-[#E5E7EB] text-[#334155]">
+        <DropdownMenuItem onClick={exportXlsx} className="cursor-pointer focus:bg-[#F0FDF4]">
           <FileSpreadsheet className="w-4 h-4 mr-2 text-[#10B981]" />
           Exportar Excel (.xlsx)
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={exportPdf} className="cursor-pointer focus:bg-[#334155]">
+        <DropdownMenuItem onClick={exportPdf} className="cursor-pointer focus:bg-[#F0FDF4]">
           <FileText className="w-4 h-4 mr-2 text-[#EF4444]" />
           Exportar PDF (A4)
         </DropdownMenuItem>

@@ -19,19 +19,19 @@ export default function WduLeadTimeChart({ orders }: Props) {
   }, [orders]);
 
   return (
-    <div className="bg-[#1E293B] border border-[#334155] rounded-lg p-3 h-full flex flex-col">
-      <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#94A3B8] font-semibold mb-2">
+    <div className="bg-white border border-[#E5E7EB] rounded-lg p-3 h-full flex flex-col shadow-sm">
+      <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#065F46] font-semibold mb-2">
         Lead Time Médio por Fase (dias úteis)
       </h3>
       <div className="flex-1 min-h-[240px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical" margin={{ top: 8, right: 40, bottom: 8, left: 8 }}>
-            <XAxis type="number" stroke="#94A3B8" tick={{ fontSize: 11, fill: '#94A3B8' }} />
-            <YAxis type="category" dataKey="phase" stroke="#94A3B8" width={90} tick={{ fontSize: 11, fill: '#CBD5E1' }} axisLine={false} tickLine={false} />
+            <XAxis type="number" stroke="#64748B" tick={{ fontSize: 11, fill: '#64748B' }} />
+            <YAxis type="category" dataKey="phase" stroke="#64748B" width={90} tick={{ fontSize: 11, fill: '#475569' }} axisLine={false} tickLine={false} />
             <ReferenceLine x={1} stroke="#EF4444" strokeDasharray="4 4" label={{ value: 'SLA', fill: '#EF4444', fontSize: 10, position: 'top' }} />
             <Tooltip
-              cursor={{ fill: 'rgba(59,130,246,0.08)' }}
-              contentStyle={{ backgroundColor: '#1E293B', border: '1px solid #334155', borderRadius: 6, fontSize: 12, color: '#F8FAFC' }}
+              cursor={{ fill: 'rgba(16,185,129,0.08)' }}
+              contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #10B981', borderRadius: 6, fontSize: 12, color: '#0F172A', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
               formatter={(v: number, _n, p) => {
                 const item = p.payload;
                 return [`${v.toFixed(2).replace('.', ',')} d • ${item.atraso} em atraso (${item.pctAtraso.toFixed(0)}%)`, 'Lead'];
@@ -41,7 +41,7 @@ export default function WduLeadTimeChart({ orders }: Props) {
               {data.map((d, i) => (
                 <Cell key={i} fill={GROUP_COLORS[d.group]} />
               ))}
-              <LabelList dataKey="leadAvg" position="right" formatter={(v: number) => `${v.toFixed(1)}d`} style={{ fontSize: 11, fill: '#F8FAFC' }} />
+              <LabelList dataKey="leadAvg" position="right" formatter={(v: number) => `${v.toFixed(1)}d`} style={{ fontSize: 11, fill: '#0F172A', fontWeight: 600 }} />
             </Bar>
           </BarChart>
         </ResponsiveContainer>

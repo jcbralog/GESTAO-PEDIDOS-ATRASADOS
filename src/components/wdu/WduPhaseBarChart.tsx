@@ -35,11 +35,11 @@ export default function WduPhaseBarChart({ orders }: Props) {
 
   return (
     <>
-      <div className="bg-white border border-[#E5E7EB] rounded-lg p-3 h-full flex flex-col shadow-sm">
-        <div className="flex items-start justify-between mb-2 flex-wrap gap-2 pb-2 border-b border-[#E5E7EB]">
+      <div className="bg-white border border-[#10B981]/20 rounded-lg p-3 h-full flex flex-col shadow-sm animate-slide-up">
+        <div className="flex items-start justify-between mb-2 flex-wrap gap-2 pb-2 border-b border-[#10B981]/20">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-[#D1FAE5] flex items-center justify-center">
-              <BarChart3 className="w-4 h-4 text-[#059669]" />
+            <div className="w-7 h-7 rounded bg-[#064E3B] flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-[#FBBF24]" />
             </div>
             <div>
               <h2 className="text-[11px] font-bold uppercase tracking-wider text-[#0F172A]">

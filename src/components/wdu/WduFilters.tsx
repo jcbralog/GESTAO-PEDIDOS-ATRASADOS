@@ -73,7 +73,7 @@ export default function WduFilters({
   const triggerCls = "h-9 bg-[#064E3B] border-[#10B981]/40 text-[#F0FDF4] hover:bg-[#065F46] hover:border-[#FBBF24] hover:text-[#FBBF24]";
 
   return (
-    <div className="bg-[#064E3B] border border-[#10B981]/40 rounded-lg p-3 flex flex-wrap items-center gap-2 shadow-sm">
+    <div className="bg-[#064E3B] border border-[#10B981]/40 rounded-lg p-3 flex flex-wrap items-center gap-2 shadow-sm animate-fade-in">
       <Filter className="w-4 h-4 text-[#FBBF24]" />
 
       {/* Phases multi-select */}

@@ -16,7 +16,7 @@ export default function WduTopOverdue({ orders }: Props) {
   }, [orders]);
 
   return (
-    <div className="bg-white border border-[#FECACA] rounded-lg p-3 h-full flex flex-col shadow-sm">
+    <div className="bg-white border border-[#FECACA] rounded-lg p-3 h-full flex flex-col shadow-sm animate-slide-up">
       <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#991B1B] font-semibold mb-2 flex items-center gap-1.5">
         <AlertTriangle className="w-3.5 h-3.5" />
         Top 5 Mais Atrasados
@@ -27,8 +27,12 @@ export default function WduTopOverdue({ orders }: Props) {
         </div>
       ) : (
         <ul className="flex-1 space-y-2">
-          {top.map(({ o, lead }) => (
-            <li key={o.noDP} className="flex items-center justify-between gap-3 bg-[#FEF2F2] border border-[#FECACA] rounded px-3 py-2">
+          {top.map(({ o, lead }, idx) => (
+            <li
+              key={o.noDP}
+              className="flex items-center justify-between gap-3 bg-[#FEF2F2] border border-[#FECACA] rounded px-3 py-2 animate-slide-left"
+              style={{ animationDelay: `${idx * 80}ms` }}
+            >
               <div className="min-w-0 flex-1">
                 <div className="text-[12px] font-mono font-semibold text-[#0F172A]">#{o.noDP}</div>
                 <div className="text-[11px] text-[#475569] truncate">{o.cliente}</div>

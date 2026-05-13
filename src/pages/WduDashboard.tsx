@@ -17,6 +17,7 @@ export default function WduDashboard() {
   const [isMock, setIsMock] = useState(true);
   const [updatedAt, setUpdatedAt] = useState<Date>(new Date());
   const [fileName, setFileName] = useState('Dados de exemplo');
+  const [mounted, setMounted] = useState(false);
 
   // Filters
   const [selectedPhases, setSelectedPhases] = useState<Set<WduPhase>>(() => new Set(WDU_PHASE_ORDER));
@@ -30,6 +31,11 @@ export default function WduDashboard() {
   useEffect(() => {
     const id = setInterval(() => setTick(t => t + 1), 60_000);
     return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 80);
+    return () => clearTimeout(t);
   }, []);
 
   const printRef = useRef<HTMLDivElement>(null);
@@ -72,9 +78,9 @@ export default function WduDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A2F22] text-[#F0FDF4] font-body">
+    <div className={`min-h-screen bg-[#0A2F22] text-[#F0FDF4] font-body ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
       {/* Top Bar */}
-      <header className="sticky top-0 z-30 bg-[#064E3B]/95 backdrop-blur border-b-2 border-[#10B981]/50 shadow-sm">
+      <header className={`sticky top-0 z-30 bg-[#064E3B]/95 backdrop-blur border-b-2 border-[#10B981]/50 shadow-sm ${mounted ? 'animate-slide-down' : ''}`}>
         <div className="px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-3 min-w-0">
             <img src="/Bralog_Logo.png" alt="Bralog" className="h-9 w-auto shrink-0" />
@@ -98,24 +104,28 @@ export default function WduDashboard() {
 
       <main ref={printRef} className="p-4 space-y-4 max-w-[1600px] mx-auto">
         {/* KPI Cards */}
-        <WduKpiCards orders={filtered} />
+        <div className={mounted ? 'animate-slide-up delay-100' : 'opacity-0'}>
+          <WduKpiCards orders={filtered} />
+        </div>
 
         {/* Filters */}
-        <WduFilters
-          orders={orders}
-          selectedPhases={selectedPhases}
-          onPhasesChange={setSelectedPhases}
-          selectedClientes={selectedClientes}
-          onClientesChange={setSelectedClientes}
-          transportadora={transportadora}
-          onTransportadoraChange={setTransportadora}
-          slaFilter={slaFilter}
-          onSlaChange={setSlaFilter}
-          onReset={resetFilters}
-        />
+        <div className={mounted ? 'animate-slide-up delay-200' : 'opacity-0'}>
+          <WduFilters
+            orders={orders}
+            selectedPhases={selectedPhases}
+            onPhasesChange={setSelectedPhases}
+            selectedClientes={selectedClientes}
+            onClientesChange={setSelectedClientes}
+            transportadora={transportadora}
+            onTransportadoraChange={setTransportadora}
+            slaFilter={slaFilter}
+            onSlaChange={setSlaFilter}
+            onReset={resetFilters}
+          />
+        </div>
 
         {/* Phase analysis: funnel table + bar chart side-by-side */}
-        <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
+        <div className={`grid grid-cols-1 xl:grid-cols-5 gap-4 ${mounted ? 'animate-slide-up delay-300' : 'opacity-0'}`}>
           <div className="xl:col-span-2">
             <WduPhaseTable
               orders={filtered}
@@ -129,7 +139,7 @@ export default function WduDashboard() {
         </div>
 
         {/* Lead time + health row */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className={`grid grid-cols-1 lg:grid-cols-4 gap-4 ${mounted ? 'animate-slide-up delay-400' : 'opacity-0'}`}>
           <div className="lg:col-span-2">
             <WduLeadTimeChart orders={filtered} />
           </div>
@@ -137,7 +147,7 @@ export default function WduDashboard() {
           <WduTopOverdue orders={filtered} />
         </div>
 
-        <footer className="text-center text-[10px] text-[#6EE7B7] pt-4 pb-2">
+        <footer className={`text-center text-[10px] text-[#6EE7B7] pt-4 pb-2 ${mounted ? 'animate-fade-in delay-500' : 'opacity-0'}`}>
           {filtered.length.toLocaleString('pt-BR')} pedidos exibidos • Lead time considera dias úteis (seg–sex), excluindo feriados nacionais, ES e Vitória/ES.
         </footer>
       </main>

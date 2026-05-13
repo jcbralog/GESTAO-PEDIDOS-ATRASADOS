@@ -39,13 +39,13 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
 
   return (
     <>
-      <div className="bg-white border border-[#E5E7EB] rounded-lg overflow-hidden h-full flex flex-col shadow-sm">
-        <div className="px-3 py-2 border-b border-[#E5E7EB] bg-[#F0FDF4] flex items-center justify-between">
-          <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#065F46] font-semibold">Funil por Situação / Fase</h3>
+      <div className="bg-white border border-[#10B981]/20 rounded-lg overflow-hidden h-full flex flex-col shadow-sm animate-slide-up">
+        <div className="px-3 py-2 border-b border-[#10B981]/20 bg-[#064E3B] flex items-center justify-between">
+          <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#F0FDF4] font-semibold">Funil por Situação / Fase</h3>
           {selectedPhase && (
             <button
               onClick={() => onSelectPhase(null)}
-              className="text-[10px] text-[#10B981] hover:underline font-semibold"
+              className="text-[10px] text-[#FBBF24] hover:underline font-semibold"
             >
               Limpar ({selectedPhase})
             </button>
@@ -53,8 +53,8 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
         </div>
         <div className="overflow-x-auto flex-1">
           <table className="w-full text-[12px] text-[#334155]">
-            <thead className="bg-[#F9FAFB]">
-              <tr className="text-left text-[10px] uppercase text-[#64748B] border-b border-[#E5E7EB]">
+            <thead className="bg-[#0A2F22]">
+              <tr className="text-left text-[10px] uppercase text-[#6EE7B7] border-b border-[#10B981]/20">
                 <th className="px-3 py-2 font-medium">Fase</th>
                 <th className="px-2 py-2 font-medium text-right">Ped.</th>
                 <th className="px-2 py-2 font-medium text-right">Lead</th>
@@ -63,14 +63,15 @@ export default function WduPhaseTable({ orders, selectedPhase, onSelectPhase }: 
               </tr>
             </thead>
             <tbody>
-              {rows.map(r => {
+              {rows.map((r, idx) => {
                 const isSelected = selectedPhase === r.phase;
                 return (
                   <tr
                     key={r.phase}
-                    className={`border-b border-[#F1F5F9] transition-colors ${
+                    className={`border-b border-[#10B981]/10 transition-colors animate-fade-in ${
                       isSelected ? 'bg-[#D1FAE5]/50' : 'hover:bg-[#F0FDF4]'
                     }`}
+                    style={{ animationDelay: `${idx * 80}ms` }}
                   >
                     <td className="px-3 py-1.5">
                       <div className="flex items-center gap-1.5">

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { RadialBarChart, RadialBar, ResponsiveContainer, PolarAngleAxis } from 'recharts';
 import type { WduOrder } from '@/lib/wduData';
 import { computeMetrics } from '@/lib/wduData';
+import { useCountUp } from '@/hooks/useCountUp';
 
 interface Props { orders: WduOrder[]; }
 
@@ -17,10 +18,12 @@ export default function WduGauge({ orders }: Props) {
   const color = pct > 70 ? '#10B981' : pct >= 50 ? '#F59E0B' : '#EF4444';
   const status = pct > 70 ? 'Saudável' : pct >= 50 ? 'Atenção' : 'Crítico';
 
-  const data = [{ name: 'pct', value: pct, fill: color }];
+  const animatedPct = useCountUp(pct, 1400, 0);
+
+  const data = [{ name: 'pct', value: animatedPct, fill: color }];
 
   return (
-    <div className="bg-white border border-[#10B981]/20 rounded-lg p-3 h-full flex flex-col shadow-sm">
+    <div className="bg-white border border-[#10B981]/20 rounded-lg p-3 h-full flex flex-col shadow-sm animate-slide-up">
       <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#064E3B] font-semibold mb-1">
         Saúde Operacional
       </h3>
@@ -32,7 +35,7 @@ export default function WduGauge({ orders }: Props) {
           </RadialBarChart>
         </ResponsiveContainer>
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <div className="text-3xl font-bold leading-none" style={{ color }}>{pct.toFixed(0)}%</div>
+          <div className="text-3xl font-bold leading-none" style={{ color }}>{animatedPct}%</div>
           <div className="text-[9px] uppercase tracking-wider text-[#64748B] mt-0.5">No Prazo</div>
           <div className="text-[10px] font-semibold mt-0.5" style={{ color }}>{status}</div>
         </div>

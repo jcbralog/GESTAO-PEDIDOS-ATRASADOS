@@ -81,7 +81,7 @@ export default function WduKpiCards({ orders }: Props) {
           <button
             key={c.label}
             onClick={() => setDrill(c.key)}
-            className="group bg-white border border-[#E5E7EB] rounded-lg p-3 text-left hover:border-[#10B981] hover:shadow-md hover:shadow-[#10B981]/10 transition-all"
+            className="group bg-white border border-[#10B981]/20 rounded-lg p-3 text-left hover:border-[#10B981] hover:shadow-md hover:shadow-[#10B981]/20 transition-all"
           >
             <div className="flex items-center justify-between mb-1">
               <span className="text-[10px] uppercase tracking-[0.1em] text-[#64748B] font-semibold">{c.label}</span>

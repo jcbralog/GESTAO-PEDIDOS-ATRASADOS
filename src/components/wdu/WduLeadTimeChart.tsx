@@ -19,8 +19,8 @@ export default function WduLeadTimeChart({ orders }: Props) {
   }, [orders]);
 
   return (
-    <div className="bg-white border border-[#E5E7EB] rounded-lg p-3 h-full flex flex-col shadow-sm">
-      <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#065F46] font-semibold mb-2">
+    <div className="bg-white border border-[#10B981]/20 rounded-lg p-3 h-full flex flex-col shadow-sm">
+      <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#064E3B] font-semibold mb-2">
         Lead Time Médio por Fase (dias úteis)
       </h3>
       <div className="flex-1 min-h-[240px]">

@@ -22,7 +22,7 @@ export default function WduTopOverdue({ orders }: Props) {
         Top 5 Mais Atrasados
       </h3>
       {top.length === 0 ? (
-        <div className="flex-1 flex items-center justify-center text-[#10B981] text-sm font-semibold">
+        <div className="flex-1 flex items-center justify-center text-[#6EE7B7] text-sm font-semibold">
           Nenhum pedido em atraso ✓
         </div>
       ) : (

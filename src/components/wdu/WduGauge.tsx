@@ -20,8 +20,8 @@ export default function WduGauge({ orders }: Props) {
   const data = [{ name: 'pct', value: pct, fill: color }];
 
   return (
-    <div className="bg-white border border-[#E5E7EB] rounded-lg p-3 h-full flex flex-col shadow-sm">
-      <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#065F46] font-semibold mb-1">
+    <div className="bg-white border border-[#10B981]/20 rounded-lg p-3 h-full flex flex-col shadow-sm">
+      <h3 className="text-[11px] uppercase tracking-[0.1em] text-[#064E3B] font-semibold mb-1">
         Saúde Operacional
       </h3>
       <div className="flex-1 relative min-h-[160px]">
@@ -37,7 +37,7 @@ export default function WduGauge({ orders }: Props) {
           <div className="text-[10px] font-semibold mt-0.5" style={{ color }}>{status}</div>
         </div>
       </div>
-      <div className="mt-1.5 flex items-center justify-between text-[10px] text-[#64748B] border-t border-[#E5E7EB] pt-1.5">
+      <div className="mt-1.5 flex items-center justify-between text-[10px] text-[#64748B] border-t border-[#10B981]/20 pt-1.5">
         <span>OK: <span className="text-[#059669] font-semibold">{noPrazo}</span></span>
         <span>Atraso: <span className="text-[#DC2626] font-semibold">{atraso}</span></span>
       </div>

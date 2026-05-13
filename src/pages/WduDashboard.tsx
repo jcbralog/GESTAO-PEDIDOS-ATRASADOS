@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Package } from 'lucide-react';
 import WduKpiCards from '@/components/wdu/WduKpiCards';
 import WduPhaseTable from '@/components/wdu/WduPhaseTable';
 import WduLeadTimeChart from '@/components/wdu/WduLeadTimeChart';
@@ -73,26 +72,23 @@ export default function WduDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] text-[#0F172A] font-body">
+    <div className="min-h-screen bg-[#0A2F22] text-[#F0FDF4] font-body">
       {/* Top Bar */}
-      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur border-b-2 border-[#10B981]/30 shadow-sm">
+      <header className="sticky top-0 z-30 bg-[#064E3B]/95 backdrop-blur border-b-2 border-[#10B981]/50 shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#10B981] to-[#059669] flex items-center justify-center shrink-0 shadow-md shadow-[#10B981]/30">
-              <Package className="w-5 h-5 text-white" />
-            </div>
+            <img src="/Bralog_Logo.png" alt="Bralog" className="h-9 w-auto shrink-0" />
             <div className="min-w-0">
-              <h1 className="text-lg font-bold leading-tight truncate text-[#0F172A]">Painel de Saída WDU</h1>
-              <p className="text-[11px] text-[#64748B] leading-tight">
+              <h1 className="text-lg font-bold leading-tight truncate text-white">GESTÃO DE PEDIDOS ATRASADOS</h1>
+              <p className="text-[11px] text-[#6EE7B7] leading-tight">
                 Bralog Logística Ltda – ES
-                {isMock && <span className="ml-2 px-1.5 py-0.5 rounded bg-[#FEF3C7] text-[#B45309] text-[10px] font-semibold">DEMO</span>}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[11px] text-[#64748B]">
-              <span className="text-[#0F172A]">{fileName}</span> • Atualizado em:{' '}
-              <span className="font-mono text-[#0F172A]">{format(updatedAt, "dd/MM/yyyy HH:mm", { locale: ptBR })}</span>
+            <span className="text-[11px] text-[#6EE7B7]">
+              <span className="text-[#F0FDF4]">{fileName}</span> • Atualizado em:{' '}
+              <span className="font-mono text-[#F0FDF4]">{format(updatedAt, "dd/MM/yyyy HH:mm", { locale: ptBR })}</span>
             </span>
             <WduUploadButton onLoaded={handleLoaded} />
             <WduExport orders={filtered} printRef={printRef} />
@@ -141,7 +137,7 @@ export default function WduDashboard() {
           <WduTopOverdue orders={filtered} />
         </div>
 
-        <footer className="text-center text-[10px] text-[#94A3B8] pt-4 pb-2">
+        <footer className="text-center text-[10px] text-[#6EE7B7] pt-4 pb-2">
           {filtered.length.toLocaleString('pt-BR')} pedidos exibidos • Lead time considera dias úteis (seg–sex), excluindo feriados nacionais, ES e Vitória/ES.
         </footer>
       </main>
